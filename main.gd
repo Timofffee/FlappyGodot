@@ -6,10 +6,28 @@ var playing = true
 var kill = false
 var can_restart = false
 
+onready var logo = get_node("LOGO")
+onready var label = get_node("label")
+onready var tubes = get_node("tubes")
+onready var start_time = get_node("start_time")
+onready var player = get_node("player")
+onready var dead_timer = get_node("dead_timer")
+onready var flash_anim = get_node("flash/anim")
+onready var ground_anim = get_node("ground/anim")
+
+# uncomment, if Godot < 2.2+
+#var press_button = false
+
 func _ready():
 	set_process(true)
 
 func _process(delta):
+# uncomment, if Godot < 2.2+
+#	if not press_button and Input.is_action_pressed("ui_accept"):
+#		_on_Button_pressed()
+#	press_button = Input.is_action_pressed("ui_accept")
+	
+# comment out the two lines below, if Godot < 2.2+	
 	if (Input.is_action_just_pressed("ui_accept")):
 		_on_Button_pressed()
 
@@ -17,32 +35,31 @@ func is_playing():
 	return playing
 
 func _on_start_time_timeout():
-	get_node("tubes").add_child(tube.instance())
+	tubes.add_child(tube.instance())
 
 func _on_Button_pressed():
-	get_node("LOGO").hide()
-	get_node("label").set_text(str(score))
+	logo.hide()
+	label.set_text(str(score))
 	set_process(false)
-	get_node("tubes").add_child(tube.instance())
-	get_node("start_time").start()
-	get_node("player").set_sleeping(false)
+	tubes.add_child(tube.instance())
+	start_time.start()
+	player.set_sleeping(false)
 
 func add_score():
 	score += 1
-	get_node("label").set_text(str(score))
+	label.set_text(str(score))
 
 func kill():
 	if not kill:
 		kill = true
-		get_node("dead_timer").start()
-		get_node("flash/anim").play("flash")
+		dead_timer.start()
+		flash_anim.play("flash")
 		playing = false
-		get_node("ground/anim").stop()
-		get_node("label").set_text("\nYOU LOSE\n\nYOUR SCORE:\n"+str(score))
+		ground_anim.stop()
+		label.set_text("\nYOU LOSE\n\nYOUR SCORE:\n"+str(score))
 
 func kill_ground(body):
-	
-	get_node("player").set_sleeping(true)
+	player.set_sleeping(true)
 	kill()
 
 func has_restart():
