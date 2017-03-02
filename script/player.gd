@@ -21,9 +21,9 @@ func _process(delta):
 	if not is_sleeping():
 #		sprite.set_rot(Vector2(-100,0).angle_to_point(get_linear_velocity())+deg2rad(90))
 		var vel = get_linear_velocity().y
-		if vel < 350:
+		if vel < 500:
 			sprite.set_rotd(lerp(sprite.get_rotd(), 15.0, 20.0*delta))
-		elif vel > 350:
+		elif vel > 500:
 			sprite.set_rotd(lerp(sprite.get_rotd(), -90.0, 5.0*delta))
 
 func jump():
