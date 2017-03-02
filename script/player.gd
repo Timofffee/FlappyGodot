@@ -3,7 +3,6 @@ extends RigidBody2D
 onready var sprite = get_node("Sprite")
 onready var jump_sound = get_node("jump")
 var current_scene
-var pressed = false
 
 func _ready():
 	sprite.set_rotd(0.0)
@@ -13,11 +12,8 @@ func _ready():
 
 func _input(ev):
 	if ev.type == InputEvent.SCREEN_TOUCH:
-		if not pressed:			#touch
-			pressed = true
+		if ev.is_pressed():
 			jump()
-		else:					#untouch
-			pressed = false
 
 func _process(delta):
 	if (Input.is_action_just_pressed("ui_accept")):

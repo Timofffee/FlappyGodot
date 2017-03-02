@@ -5,7 +5,6 @@ var tube = preload("res://scene/tube.tscn")
 var playing = false
 var kill = false
 var can_restart = false
-var pressed = false
 var tube_half_w = 0
 
 export (int, 0, 64) var tube_count = 2
@@ -26,11 +25,8 @@ func _ready():
 
 func _input(ev):
 	if ev.type == InputEvent.SCREEN_TOUCH:
-		if not pressed:			#touch
-			pressed = true
+		if ev.is_pressed():
 			_on_Button_pressed()
-		else:					#untouch
-			pressed = false
 
 
 func _process(delta):
