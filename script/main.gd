@@ -38,7 +38,7 @@ func _process(delta):
 			else:
 				if tubes_ch.back().get_pos().x < OS.get_window_size().x - (OS.get_window_size().x/tube_count) - tube_half_w:
 					tubes.add_child(tube.instance()) #spawn other tube
-	elif (Input.is_action_just_pressed("ui_accept")):
+	elif (Input.is_action_pressed("ui_accept")):
 		_on_Button_pressed()
 
 func is_playing():
